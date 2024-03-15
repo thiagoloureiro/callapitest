@@ -21,8 +21,15 @@ public class WeatherForecastController : ControllerBase
     [HttpGet(Name = "GetWeatherForecast")]
     public string Get(string url)
     {
-        var client = new HttpClient();
-        var response = client.GetAsync(url).Result;
-        return response.Content.ReadAsStringAsync().Result;
+        try
+        {
+            var client = new HttpClient();
+            var response = client.GetAsync(url).Result;
+            return response.Content.ReadAsStringAsync().Result;
+        }
+        catch (Exception e)
+        {
+            return e.Message;
+        }
     }
 }
